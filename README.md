@@ -4,8 +4,8 @@ SWAPR (*swapper*) is a project to demonstrate the use of R for data engineering.
 
 - [x] Extract data from the Star Wars API (**SWAPI**)
 - [x] Load SWAPI data into a DuckDB database
-- [] Transform raw data into production ready datasets
-- [] Utilise production ready datasets in a Shiny web app or similar end-product
+- [ ] Transform raw data into production ready datasets
+- [ ] Utilise production ready datasets in a Shiny web app or similar end-product
 
 ### Using R
 
