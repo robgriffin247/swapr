@@ -2,10 +2,13 @@
 library(data.table)
 library(duckdb)
 
-r2db <- function(dt, resource, schema, prefix){
+r2db <- function(dt, table, schema){
+  # Remove list variables
+  dt <- dt[, .SD, .SDcols=dt[, !sapply(.SD, is.list)]]
+  
   # Load to duckdb
   con <- dbConnect(duckdb(), dbdir="data/swapr.duckdb")
   on.exit(dbDisconnect(con, shutdown = TRUE), add=TRUE)
   dbExecute(con, paste0("CREATE SCHEMA IF NOT EXISTS ", toupper(schema)))
-  dbWriteTable(con, paste0(toupper(prefix), "_", toupper(resource)), dt, overwrite=TRUE)
+  dbWriteTable(con, toupper(table), dt, overwrite=TRUE)
 }
