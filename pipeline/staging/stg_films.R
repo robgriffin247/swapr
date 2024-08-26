@@ -1,5 +1,6 @@
+# Staging of films data
 setwd("~/git_personal/swapr/")
 source("functions/api_wan.R")
 source("functions/r2db.R")
-source("functions/query_duckdb.R")
 
+r2db(api_wan("films"), "stg_films", "staging")

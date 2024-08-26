@@ -12,3 +12,12 @@ r2db <- function(dt, table, schema){
   dbExecute(con, paste0("CREATE SCHEMA IF NOT EXISTS ", toupper(schema)))
   dbWriteTable(con, toupper(table), dt, overwrite=TRUE)
 }
+
+r2db <- function(dt, table, schema){
+  dt <- dt[, .SD, .SDcols=dt[, !sapply(.SD, is.list)]]
+  
+  con <- dbConnect(duckdb(), dbdir="data/swapr.duckdb")
+  on.exit(dbDisconnect(con, shutdown = TRUE), add=TRUE)
+  dbExecute(con, paste0("CREATE SCHEMA IF NOT EXISTS ", toupper(schema)))
+  dbWriteTable(con, toupper(table), dt, overwrite=TRUE)
+}
